@@ -120,20 +120,26 @@ local function CekAkses()
 end
 
 -- FUNGSI VALIDASI UTAMA
-local function EksekusiCekJawaban()
+local function VerifiedSuccess()
 	if Terverifikasi then return end
 
-	local KunciJawaban = string.lower(ListPertanyaan[IndeksSkrg].Jawab)
-	local InputUserClean = string.lower(string.gsub(JawabanUser, "%s+", ""))
+	Terverifikasi = true
 
-	if InputUserClean == KunciJawaban then
-		Terverifikasi = true
-		WindUI:Notify({
-			Title = "VERIFIED SUCCESS ✅",
-			Content = "Jawaban Benar! Semua fitur tab kini aktif.",
-			Duration = 5
-		})
-		LabelPertanyaan:SetTitle("STATUS: VERIFIED")
+	WindUI:Notify({
+		Title = "VERIFIED SUCCESS ✅",
+		Content = "Jawaban Benar! Semua fitur tab kini aktif.",
+		Duration = 5
+	})
+
+	CreateDashboard()
+	CreateServer()
+	CreatePlayer()
+	CreateVisual()
+	CreateExploits()
+	CreateMenu()
+	CreateExtra()
+	CreateOthers()
+end	LabelPertanyaan:SetTitle("STATUS: VERIFIED")
 		LabelPertanyaan:SetDesc("Akses penuh berhasil dibuka. Silahkan pilih tab fitur di sidebar kiri!")
 	else
 		WindUI:Notify({
