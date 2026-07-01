@@ -47,7 +47,7 @@ local Window = WindUI:CreateWindow({
 		Callback = function()
 			WindUI:Notify({
 				Title = "SILENT | HUB",
-				Content = "Key Valid ✅",
+				Content = "Key Valid âœ…",
 				Duration = 5
 			})
 		end
@@ -99,18 +99,18 @@ local JawabanUser = ""
 -- 0. ====== TAB VERIFIKASI ======
 local InfoTab = Window:Tab({ Title = "VERIFICATION", Icon = "shield-alert" })
 
-InfoTab:Section({ Title = "🔒 VERIFIKASI UNTUK MEMBUKA SEMUA TAB" })
+InfoTab:Section({ Title = "ðŸ”’ VERIFIKASI UNTUK MEMBUKA SEMUA TAB" })
 
 local LabelPertanyaan = InfoTab:Paragraph({
 	Title = "PERTANYAAN:",
-	Desc = "❓ " .. ListPertanyaan[IndeksSkrg].Tanya
+	Desc = "â“ " .. ListPertanyaan[IndeksSkrg].Tanya
 })
 
 -- fungsi cek akses pencegah klik ilegal sebelum verifikasi
 local function CekAkses()
 	if not Terverifikasi then
 		WindUI:Notify({
-			Title = "ACCESS DENIED ❌",
+			Title = "ACCESS DENIED âŒ",
 			Content = "Silahkan selesaikan VERIFIKASI pertanyaan terlebih dahulu!",
 			Duration = 3
 		})
@@ -120,30 +120,24 @@ local function CekAkses()
 end
 
 -- FUNGSI VALIDASI UTAMA
-local function VerifiedSuccess()
+local function EksekusiCekJawaban()
 	if Terverifikasi then return end
 
-	Terverifikasi = true
+	local KunciJawaban = string.lower(ListPertanyaan[IndeksSkrg].Jawab)
+	local InputUserClean = string.lower(string.gsub(JawabanUser, "%s+", ""))
 
-	WindUI:Notify({
-		Title = "VERIFIED SUCCESS ✅",
-		Content = "Jawaban Benar! Semua fitur tab kini aktif.",
-		Duration = 5
-	})
-
-	CreateDashboard()
-	CreateServer()
-	CreatePlayer()
-	CreateVisual()
-	CreateExploits()
-	CreateMenu()
-	CreateExtra()
-	CreateOthers()
-end	LabelPertanyaan:SetTitle("STATUS: VERIFIED")
+	if InputUserClean == KunciJawaban then
+		Terverifikasi = true
+		WindUI:Notify({
+			Title = "VERIFIED SUCCESS âœ…",
+			Content = "Jawaban Benar! Semua fitur tab kini aktif.",
+			Duration = 5
+		})
+		LabelPertanyaan:SetTitle("STATUS: VERIFIED")
 		LabelPertanyaan:SetDesc("Akses penuh berhasil dibuka. Silahkan pilih tab fitur di sidebar kiri!")
 	else
 		WindUI:Notify({
-			Title = "WRONG ANSWER ❌",
+			Title = "WRONG ANSWER âŒ",
 			Content = "Jawaban salah, coba lagi atau ganti pertanyaan!",
 			Duration = 4
 		})
@@ -165,12 +159,12 @@ InfoTab:Input({
 })
 
 InfoTab:Button({
-	Title = "🔄 REFRESH PERTANYAAN",
+	Title = "ðŸ”„ REFRESH PERTANYAAN",
 	Desc = "Ganti ke pertanyaan lain secara acak",
 	Callback = function()
 		if Terverifikasi then return end
 		IndeksSkrg = (IndeksSkrg % #ListPertanyaan) + 1
-		LabelPertanyaan:SetDesc("❓ " .. ListPertanyaan[IndeksSkrg].Tanya)
+		LabelPertanyaan:SetDesc("â“ " .. ListPertanyaan[IndeksSkrg].Tanya)
 		JawabanUser = ""
 		WindUI:Notify({
 			Title = "SYSTEM",
@@ -181,7 +175,7 @@ InfoTab:Button({
 })
 
 InfoTab:Button({
-	Title = "➡️ ENTER JAWABAN",
+	Title = "âž¡ï¸ ENTER JAWABAN",
 	Desc = "Klik di sini jika verifikasi tidak berjalan otomatis",
 	Callback = function()
 		EksekusiCekJawaban()
@@ -191,21 +185,21 @@ InfoTab:Button({
 
 -- 1. ====== DASHBOARD TAB ======
 local DashboardTab = Window:Tab({ Title = "DASHBOARD", Icon = "crown" })
-DashboardTab:Section({ Title = "👤 USER PROFILE" })
+DashboardTab:Section({ Title = "ðŸ‘¤ USER PROFILE" })
 DashboardTab:Paragraph({
-	Title = "🎮 "..LocalPlayer.DisplayName,
-	Desc = "👤 Username : "..LocalPlayer.Name..
-	"\n🆔 User ID : "..LocalPlayer.UserId..
-	"\n📅 Account Age : "..LocalPlayer.AccountAge.." Days"..
-	"\n💎 Rank : Premium User"..
-	"\n🟢 Status : Online"
+	Title = "ðŸŽ® "..LocalPlayer.DisplayName,
+	Desc = "ðŸ‘¤ Username : "..LocalPlayer.Name..
+	"\nðŸ†” User ID : "..LocalPlayer.UserId..
+	"\nðŸ“… Account Age : "..LocalPlayer.AccountAge.." Days"..
+	"\nðŸ’Ž Rank : Premium User"..
+	"\nðŸŸ¢ Status : Online"
 })
 DashboardTab:Paragraph({
 	Title = "SYSTEM INFORMATION",
-	Desc = "🔥 SCRIPT VERSION : V.890\n"..
-	"⚡ INFO EXECUTOR: "..identifyexecutor().."\n"..
-	"🎯 STATUS SCRIPT : WORKING FREE ACCES\n"..
-	"👑 OWNER : SILENT EXPLOITS OFFIALS"
+	Desc = "ðŸ”¥ SCRIPT VERSION : V.890\n"..
+	"âš¡ INFO EXECUTOR: "..identifyexecutor().."\n"..
+	"ðŸŽ¯ STATUS SCRIPT : WORKING FREE ACCES\n"..
+	"ðŸ‘‘ OWNER : SILENT EXPLOITS OFFIALS"
 })
 DashboardTab:Button({
 	Title = "(   LINK SERVER DISCORD     )",
@@ -230,9 +224,9 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local gameName = "Unknown Game"
 pcall(function() gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name end)
 
-local MainInfo = ServerTab:Paragraph({ Title = "📊 SERVER DASHBOARD", Desc = "Harap selesaikan verifikasi..." })
-local PlayerList = ServerTab:Paragraph({ Title = "👥 CLICK PLAYER INFO", Desc = "Harap selesaikan verifikasi..." })
-local SelectedInfo = ServerTab:Paragraph({ Title = "🎯 SELECTED PLAYER", Desc = "Click a player name below" })
+local MainInfo = ServerTab:Paragraph({ Title = "ðŸ“Š SERVER DASHBOARD", Desc = "Harap selesaikan verifikasi..." })
+local PlayerList = ServerTab:Paragraph({ Title = "ðŸ‘¥ CLICK PLAYER INFO", Desc = "Harap selesaikan verifikasi..." })
+local SelectedInfo = ServerTab:Paragraph({ Title = "ðŸŽ¯ SELECTED PLAYER", Desc = "Click a player name below" })
 
 task.spawn(function()
 	while task.wait(1.5) do
@@ -248,7 +242,7 @@ task.spawn(function()
 			local names = ""
 			for _, p in ipairs(Players:GetPlayers()) do names = names .. p.Name .. " | " end
 
-			MainInfo:SetDesc("🎮 Game: "..gameName.."\n👥 Players: "..players.."/"..maxPlayers.."\n📡 Ping: "..ping.." ms" .. "\n⏱️ Uptime: "..uptime.."s" .. "\n🆔 JobId: "..jobId .. "\n📍 PlaceId: "..placeId)
+			MainInfo:SetDesc("ðŸŽ® Game: "..gameName.."\nðŸ‘¥ Players: "..players.."/"..maxPlayers.."\nðŸ“¡ Ping: "..ping.." ms" .. "\nâ±ï¸ Uptime: "..uptime.."s" .. "\nðŸ†” JobId: "..jobId .. "\nðŸ“ PlaceId: "..placeId)
 			PlayerList:SetDesc("Players Online:\n"..names)
 		end
 	end
@@ -258,15 +252,15 @@ local function showPlayerInfo(plr)
 	if not plr or not CekAkses() then return end
 	local char = plr.Character
 	local hum = char and char:FindFirstChildOfClass("Humanoid")
-	SelectedInfo:SetDesc("👤 Name: "..plr.Name.."\n🆔 UserId: "..plr.UserId.."\n📅 Account Age: "..plr.AccountAge.."\n📊 Health: "..(hum and hum.Health or "N/A").."\n📏 Display: "..plr.DisplayName)
+	SelectedInfo:SetDesc("ðŸ‘¤ Name: "..plr.Name.."\nðŸ†” UserId: "..plr.UserId.."\nðŸ“… Account Age: "..plr.AccountAge.."\nðŸ“Š Health: "..(hum and hum.Health or "N/A").."\nðŸ“ Display: "..plr.DisplayName)
 end
 
-local PlayerSection = ServerTab:Section({Title="👥 PLAYERS"})
+local PlayerSection = ServerTab:Section({Title="ðŸ‘¥ PLAYERS"})
 local function refreshPlayers()
 	for _, plr in ipairs(Players:GetPlayers()) do
 		if plr ~= Players.LocalPlayer then
 			PlayerSection:Button({
-				Title = "👤 "..plr.Name,
+				Title = "ðŸ‘¤ "..plr.Name,
 				Desc = "Click to view info",
 				Callback = function() 
 					if not CekAkses() then return end
@@ -282,13 +276,14 @@ Players.PlayerAdded:Connect(function() task.wait(1) if Terverifikasi then refres
 --================= PLAYER =================
 local PlayerTab = Window:Tab({Title="PLAYER", Icon="user"})
 
-PlayerTab:Section({Title="⚡ MOVEMENT"})
+PlayerTab:Section({Title="âš¡ MOVEMENT"})
 
 PlayerTab:Toggle({
 Title = "WALK SPEED",
 Desc = "ENABLE CUSTOM WALK SPEED",
 Default = false,
 Callback = function(state)
+if not CekAkses() then return end 
 	walkEnabled = state
 
 	local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
@@ -309,6 +304,7 @@ Max = 200,
 Default = 16
 },
 Callback = function(value)
+if not CekAkses() then return end 
 	if walkEnabled then
 		local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 		if hum then
@@ -377,7 +373,7 @@ PlayerTab:Button({
 	end
 })
 
-PlayerTab:Section({Title="👻 VISUAL CHARACTER"})
+PlayerTab:Section({Title="ðŸ‘» VISUAL CHARACTER"})
 
 PlayerTab:Button({
 	Title="INVISIBLE",
@@ -409,7 +405,7 @@ PlayerTab:Button({
 	end
 })
 
-PlayerTab:Section({Title="🎮 UTILITY"})
+PlayerTab:Section({Title="ðŸŽ® UTILITY"})
 
 PlayerTab:Button({
 	Title="RESET CHARACTER",
@@ -437,7 +433,7 @@ PlayerTab:Button({
 })
 local VisualTab = Window:Tab({Title="VISUAL", Icon="eye"})
 
-VisualTab:Section({Title="🌈 GRAPHIC"})
+VisualTab:Section({Title="ðŸŒˆ GRAPHIC"})
 
 VisualTab:Button({
 Title="FULLBRIGHT",
@@ -480,7 +476,7 @@ Lighting.ClockTime = 14
 end
 })
 
-VisualTab:Section({Title="👁️ CAMERA VISUAL"})
+VisualTab:Section({Title="ðŸ‘ï¸ CAMERA VISUAL"})
 
 VisualTab:Button({
 Title="FOV 120",
@@ -506,7 +502,7 @@ workspace.CurrentCamera.FieldOfView = 70
 end
 })
 
-VisualTab:Section({Title="✨ EFFECTS"})
+VisualTab:Section({Title="âœ¨ EFFECTS"})
 
 VisualTab:Button({
 Title="REMOVE SHADOW",
@@ -540,7 +536,7 @@ end
 end
 })
 
-VisualTab:Section({Title="🎮 CHARACTER VISUAL"})
+VisualTab:Section({Title="ðŸŽ® CHARACTER VISUAL"})
 
 VisualTab:Button({
 Title="INVISIBLE FULL",
@@ -573,7 +569,7 @@ end
 end
 })
 
-VisualTab:Section({Title="💡 EXTRA VISUAL"})
+VisualTab:Section({Title="ðŸ’¡ EXTRA VISUAL"})
 
 VisualTab:Button({
 Title="CLEAR MAP LAG",
@@ -606,7 +602,7 @@ end
 local JuleTab = Window:Tab({Title="EXPLOITS", Icon="skull"})
 
 JuleTab:Button({
-	Title="🔍SCAN BACKDOOR",
+	Title="ðŸ”SCAN BACKDOOR",
 	Desc="Mendeteksi RemoteEvent mencurigakan",
 	Callback=function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/silentscript1/Remote-Event_Backdoor/refs/heads/main/Remote_SilentScript"))()
@@ -614,14 +610,14 @@ JuleTab:Button({
 })
 
 JuleTab:Button({
-	Title="💰FAKE DONATE",
+	Title="ðŸ’°FAKE DONATE",
 	Desc="Efek donasi visual",
 	Callback=function()
 		loadstring(game:HttpGet("https://pastefy.app/4iqtSMB6/raw"))()
 	end
 })
 JuleTab:Button({
-	Title="👁️ SPECTATOR PLAYER",
+	Title="ðŸ‘ï¸ SPECTATOR PLAYER",
 	Desc="Melihat Player Lain jarak jauh",
 	Callback=function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/silentscript1/Gggttgghhhdhhd/refs/heads/main/Fddsrty"))()
@@ -629,7 +625,7 @@ JuleTab:Button({
 })
 
 JuleTab:Button({
-	Title="💬SPAMMING CHAT",
+	Title="ðŸ’¬SPAMMING CHAT",
 	Desc="Spamm Chat",
 	Callback=function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/silentscript1/SpamChat/refs/heads/main/SilentSpam"))()
@@ -637,7 +633,7 @@ JuleTab:Button({
 })
 
 JuleTab:Button({
-	Title="👤FLING PLAYER",
+	Title="ðŸ‘¤FLING PLAYER",
 	Desc="Lempar player",
 	Callback=function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/silentteam-87/FlingPlayer/refs/heads/main/SILENT-GGWP"))()
@@ -645,7 +641,7 @@ JuleTab:Button({
 })
 
 JuleTab:Button({
-	Title="🌪️SUPER RING PARTS",
+	Title="ðŸŒªï¸SUPER RING PARTS",
 	Desc="Part berputar",
 	Callback=function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/silentteam-87/SuperRingParts/refs/heads/main/SILENT EXPLOITS"))()
@@ -653,14 +649,14 @@ JuleTab:Button({
 })
 
 JuleTab:Button({
-	Title="🧲BRING PARTS",
+	Title="ðŸ§²BRING PARTS",
 	Desc="Tarik part",
 	Callback=function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/silentteam-87/freeAcces9999x/refs/heads/main/SILENTEXPLOITS9999"))()
 	end
 })
 JuleTab:Button({
-Title="🔥LASER MAP",
+Title="ðŸ”¥LASER MAP",
 Desc="Laser Work ( All Game )",
 Callback=function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/silentscript1/Laser_Glitch100-/refs/heads/main/Bysilentcrak"))()
@@ -668,7 +664,7 @@ end
 })
 
 JuleTab:Button({
-Title="🕵️ESP PLAYER ",
+Title="ðŸ•µï¸ESP PLAYER ",
 Desc="Menampilkan lokasi player melalui dinding dan jarak jauh",
 Callback=function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/silentscript1/Bringpart/refs/heads/main/Esp-PlayerHub"))()
@@ -676,7 +672,7 @@ end
 })
 
 JuleTab:Button({
-Title="🎯AIMBOT",
+Title="ðŸŽ¯AIMBOT",
 Desc="Membantu mengunci target secara otomatis",
 Callback=function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/silentteam-87/AIMLOCK-1x1xAIMBOT/refs/heads/main/silentganteng"))()
@@ -684,7 +680,7 @@ end
 })
 
 JuleTab:Button({
-Title="🕊FLY PLAYER",
+Title="ðŸ•ŠFLY PLAYER",
 Desc="Free fly movement system",
 Callback=function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/silentteam-87/Fly-GuiV2/refs/heads/main/silentexploitshub"))()
@@ -694,7 +690,7 @@ local SettingTab = Window:Tab({Title="MENU", Icon="zap"})
 local hiddenPlayers = false
 
 SettingTab:Toggle({
-    Title = "🙈 HIDE PLAYERS",
+    Title = "ðŸ™ˆ HIDE PLAYERS",
     Desc = "Sembunyikan semua player (client)",
     Default = false,
     Callback = function(state)
@@ -982,93 +978,4 @@ Desc="BLOOD STRIKE AIMBOT SNIPER",
 Callback=function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/silentteam-87/BloodStrike-100Sniper/refs/heads/main/silenthub.myid"))()
 end
-})
-local AvatarTab = Window:Tab({Title="AVATAR", Icon="user"})
-
-AvatarTab:Section({Title="👤 AVATAR STALKER"})
-
-local TargetAvatarPlayer = ""
-
--- Dropdown untuk mencari player
-local PlayerDropdown = AvatarTab:Dropdown({
-	Title = "SEARCH PLAYER",
-	Desc = "Pilih pemain di server untuk disalin avatarnya",
-	Options = {}, 
-	Callback = function(SelectedName)
-		TargetAvatarPlayer = SelectedName
-	end
-})
-
--- Fungsi memperbarui daftar player di dropdown secara real-time
-local function UpdateDropdownPlayers()
-	local currentPlayers = {}
-	for _, p in ipairs(Players:GetPlayers()) do
-		if p ~= LocalPlayer then 
-            table.insert(currentPlayers, p.Name) 
-        end
-	end
-	if PlayerDropdown and PlayerDropdown.SetOptions then
-		PlayerDropdown:SetOptions(currentPlayers)
-	elseif PlayerDropdown and PlayerDropdown.Refresh then
-		PlayerDropdown:Refresh(currentPlayers, true)
-	end
-end
-
--- Looping otomatis update daftar player setiap 3 detik
-task.spawn(function()
-	while task.wait(3) do
-		UpdateDropdownPlayers()
-	end
-end)
-
--- Tombol Clone Avatar
-AvatarTab:Button({
-	Title = "➡️ ENTER AVATAR",
-	Desc = "Salin penampilan player pilihan",
-	Callback = function()
-		if TargetAvatarPlayer == "" then
-			WindUI:Notify({Title = "ERROR", Content = "Silahkan pilih target player di Dropdown dulu!", Duration = 3})
-			return
-		end
-		
-		local TargetPlr = Players:FindFirstChild(TargetAvatarPlayer)
-		if TargetPlr and TargetPlr.Character and LocalPlayer.Character then
-			local LocalHum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-			if LocalHum then
-				local Success, Desc = pcall(function() 
-                    return Players:GetHumanoidDescriptionFromUserId(TargetPlr.UserId) 
-                end)
-				if Success and Desc then
-					LocalHum:ApplyDescription(Desc)
-					WindUI:Notify({Title = "AVATAR CLONED ✅", Content = "Berhasil menyalin avatar dari: " .. TargetAvatarPlayer, Duration = 4})
-				else
-					WindUI:Notify({Title = "ERROR", Content = "Gagal memuat asset catalog player.", Duration = 3})
-				end
-			end
-		else
-			WindUI:Notify({Title = "ERROR", Content = "Player tidak ditemukan atau karakter belum memuat.", Duration = 3})
-		end
-	end
-})
-
--- Tombol Reset Avatar
-AvatarTab:Button({
-	Title = "🔄 RESET AVATAR",
-	Desc = "Kembalikan penampilan asli Anda",
-	Callback = function()
-		if LocalPlayer.Character then
-			local LocalHum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-			if LocalHum then
-				local Success, Desc = pcall(function() 
-                    return Players:GetHumanoidDescriptionFromUserId(LocalPlayer.UserId) 
-                end)
-				if Success and Desc then
-					LocalHum:ApplyDescription(Desc)
-					WindUI:Notify({Title = "AVATAR RESETED 🔄", Content = "Avatar Anda telah kembali ke semula.", Duration = 3})
-				else
-					LocalPlayer:LoadCharacter()
-				end
-			end
-		end
-	end
 })
